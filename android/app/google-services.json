@@ -1,0 +1,125 @@
+{
+  "project_info": {
+    "project_number": "263848651586",
+    "firebase_url": "https://fitnessvwork-277108.firebaseio.com",
+    "project_id": "fitnessvwork-277108",
+    "storage_bucket": "fitnessvwork-277108.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263848651586:android:2b2352ae64d99752aa36db",
+        "android_client_info": {
+          "package_name": "com.fitnessvworkjoshua"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263848651586-33cna4p4miremem3gppe100eukrao9u8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitnessvworkjoshua",
+            "certificate_hash": "f6c2aa42ed8f732b87ffa94eb4ae45006da60b13"
+          }
+        },
+        {
+          "client_id": "263848651586-k8viujja2qjl96iflbh454fft4444e3f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitnessvworkjoshua",
+            "certificate_hash": "9079e2838edbe644f4951ab21883fa33d0c98b9e"
+          }
+        },
+        {
+          "client_id": "263848651586-rfd5gujv3qs6a4tr7e055t8n062ks6ka.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitnessvworkjoshua",
+            "certificate_hash": "29878bdee7fe3a7a671c82cdd544134eada1cd76"
+          }
+        },
+        {
+          "client_id": "263848651586-ld8728lt0a5ivsg34ihbutllvj27vnhc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_LcGlcy1REvQy_YqtWtUoyILCgbio8uI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263848651586-l618aqm7v882toa9po10dq0u9bgdh31a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "263848651586-e19goj68tsr5i3tab47jn224vmloulou.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.funavry.fitnessvworkexpo",
+                "app_store_id": "123456789"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263848651586:android:910d44f7f21c488daa36db",
+        "android_client_info": {
+          "package_name": "com.funavry.fitnessvworkexpo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263848651586-caq9d9bfmttr0iq24imui7n3gde04900.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.funavry.fitnessvworkexpo",
+            "certificate_hash": "9079e2838edbe644f4951ab21883fa33d0c98b9e"
+          }
+        },
+        {
+          "client_id": "263848651586-qofvkcg4loimhunkbh0vpn30q6sfo2ni.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.funavry.fitnessvworkexpo",
+            "certificate_hash": "f6c2aa42ed8f732b87ffa94eb4ae45006da60b13"
+          }
+        },
+        {
+          "client_id": "263848651586-ld8728lt0a5ivsg34ihbutllvj27vnhc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_LcGlcy1REvQy_YqtWtUoyILCgbio8uI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263848651586-l618aqm7v882toa9po10dq0u9bgdh31a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "263848651586-e19goj68tsr5i3tab47jn224vmloulou.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.funavry.fitnessvworkexpo",
+                "app_store_id": "123456789"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

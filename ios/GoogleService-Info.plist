@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>263848651586-tg38vj5m1hag63mrommh2k8pv8u7khol.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.263848651586-tg38vj5m1hag63mrommh2k8pv8u7khol</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>263848651586-7209o85m2qoprbdl97j1ebkb1m905tqd.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCV_MwcqOODhRc3FP6axJN2eTGR94a8tvE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>263848651586</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.funavry.fitnessvworkexpo</string>
+	<key>PROJECT_ID</key>
+	<string>fitnessvwork-277108</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fitnessvwork-277108.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:263848651586:ios:091e818c3a14d30baa36db</string>
+	<key>DATABASE_URL</key>
+	<string>https://fitnessvwork-277108.firebaseio.com</string>
+</dict>
+</plist>

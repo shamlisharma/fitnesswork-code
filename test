@@ -1,0 +1,379 @@
+import React, {
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+  useLayoutEffect,
+} from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  Image,
+  Dimensions,
+  FlatList,
+  ScrollView,
+} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {COLORS} from '../../../common/Constant';
+import {MainScreen} from '../../../common/Screen';
+import GradientContainer from '../../../components/GradientContainer';
+import Timer from '../../../components/Timer';
+import {CloseFoodIcon, PauseIcon, PlayIcon, VideoPlayIcon} from '../../../Svg';
+import ExerciseDetailRow from './ExerciseDetailRow';
+import Video from 'react-native-video';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import settings from '../../../config/settings';
+import {useDispatch, useSelector} from 'react-redux';
+import {workoutProgrammeActionTypes} from '../../../_action/WorkoutAction';
+import {usersService} from '../../../services/ApiServices';
+import GradientButton from '../../../components/GradientButton';
+import AlertModal from '../../modal/AlertModal';
+import { multiply } from 'lodash';
+
+const ExerciseCard = props => {
+  const {item, infoData} = props;
+  const [userInput, setUserInput] = useReducer(
+    (state, newState) => ({...state, ...newState}),
+    {
+      kG: '',
+      repS: '',
+      resT: '',
+    },
+  );
+  const route = useRoute();
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [workoutStatus, setWorkoutStatus] = useState(0);
+  const [exerciseArr,setExerciseArr] = useState([])
+  const videoPlayerRef = useRef(null);
+  const time = useSelector(state => state.workout.workoutDuration.seconds);
+  const goal = useSelector(
+    state => state.workout.workoutProgramme?.data?.data?.responseData?.result,
+  );
+  const [playVideo, setPlayVideo] = useState(false);
+  const [exerciseStats, setExerciseStats] = useState([]);
+  const [alertModal, setAlertModal] = useState(false);
+  let mediaPath = settings.s3Url.url;
+  let cdnPath = settings.cdnUrl.url;
+
+  const setsArray = item => {
+    let temp = [];
+    for (let i = 1; i <= item.noOfSets; i++) {
+      temp.push(i);
+    }
+    return temp;
+  };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => {
+            dispatch({
+              type: workoutProgrammeActionTypes.RESET_WORKOUT_DURATION,
+            });
+            navigation.goBack();
+          }}>
+          <CloseFoodIcon color={COLORS.grey_3} />
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
+
+  const handleExerciseStats = data => {
+    
+    let tempArray = exerciseStats;
+    let filteredData = tempArray.filter(item => item.set === data.set);
+    let index = tempArray.indexOf(filteredData[0]);
+
+    if (index === -1) tempArray.push(data);
+    else tempArray[index] = data;
+    setExerciseStats(tempArray);
+    setExerciseArr({exerciseId:route.params.exerciseData._id,time:time,stats:JSON.stringify(exerciseStats)})
+  };
+
+  const handleSubmit = () => {
+    const {kG, resT, repS} = userInput;
+    console.log("kg",kG);
+    if (kG == 0) {
+      alert("hvdgc101",userInput.kG)
+      // setAlertModal(true);
+    } else if (resT == 0) {
+      // setAlertModal(true);
+      alert("hvdgc105")
+    } else if (repS == 0) {
+      // setAlertModal(true);
+      alert("hvdgc108")
+    } else {
+      let params = {
+        workoutId:props?.workoutid,
+        exerciseStats: exerciseArr,
+        dayGoal:
+          props?.dashboardKey === true
+            ? goal?.dayGoal
+              ? goal?.dayGoal
+              : 1
+            : goal?.dayGoal,
+        weekGoal:
+          props?.dashboardKey === true
+            ? goal?.dayGoal
+              ? goal?.weekGoal
+              : goal?.weekGoal + 1
+            : goal?.weekGoal,
+      };
+      setAlertModal(false);
+      usersService.saveExerciseStatistics(params).then(res => {
+        navigation.navigate('Hiit complete', {
+          id: props?.workId,
+          exLength: infoData,
+        });
+        setPlayVideo(false);
+      });
+    }
+  };
+
+  const onPlay = data => {
+    setWorkoutStatus(1);
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <GradientButton
+          title={'Finish'}
+          onPress={() => handleSubmit()}
+          style={{padding: 6, paddingHorizontal: 10}}
+          textStyle={{fontSize: 13}}
+        />
+      ),
+    });
+  }, [navigation]);
+
+  console.log(
+    'alert modal',
+    exerciseStats.length,
+    exerciseArr,
+    userInput.kG
+  );
+  return (
+    <View>
+      {alertModal?(
+        <AlertModal alert={true} onResume={() => setAlertModal(false)} />
+      ):null}
+      <>
+        <View style={styles.startButtonContainer}>
+          {workoutStatus === 1 ? (
+            <Pressable onPress={() => setWorkoutStatus(2)}>
+              <PauseIcon />
+            </Pressable>
+          ) : (
+            <Pressable
+              onPress={() => onPlay(item)}
+              style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={styles.startTextStyle}>
+                {workoutStatus === 2 ? 'continue' : 'start'}
+              </Text>
+              <PlayIcon />
+              <Text style={styles.startTextStyle}>
+                {workoutStatus === 2 ? 'working' : 'work'}
+              </Text>
+            </Pressable>
+          )}
+          {workoutStatus === 1 ? (
+            <Timer
+              style={{position: 'absolute', right: 10}}
+              dependency={workoutStatus}
+            />
+          ) : null}
+        </View>
+        {item?.exerciseVideo === '' && item?.link?.url === null ? null : (
+          <View style={{paddingHorizontal: 10}}>
+            {playVideo ? (
+              <>
+                <View
+                  style={[
+                    styles.videoStyle,
+                    {
+                      backgroundColor: 'black',
+                      position: 'absolute',
+                      left: 10,
+                    },
+                  ]}
+                />
+                {console.log('item?.link?.url', cdnPath + item?.exerciseVideo)}
+                <Video
+                  source={
+                    item?.exerciseVideo != ''
+                      ? {
+                          uri: cdnPath + item?.exerciseVideo,
+                        }
+                      : {uri: item?.link?.url}
+                  }
+                  style={styles.videoStyle}
+                  controls={true}
+                  paused={false}
+                  onVideoError={item => console.log('on video error', item)}
+                  resizeMode={'contain'}
+                  ref={videoPlayerRef}
+                  onEnd={() => {
+                    setPlayVideo(false);
+                  }}
+                />
+              </>
+            ) : (
+              <Pressable
+                style={[
+                  styles.videoStyle,
+                  {alignItems: 'center', justifyContent: 'center'},
+                ]}
+                onPress={() => setPlayVideo(true)}>
+                <Image
+                  source={
+                    item?.thumbImage == '' || item?.thumbImage === null
+                      ? {uri: item?.link?.image}
+                      : {
+                          uri: mediaPath + item?.thumbImage,
+                        }
+                  }
+                  style={[styles.videoStyle, {zIndex: 8}]}
+                />
+                <View style={{zIndex: 10, position: 'absolute'}}>
+                  {item?.thumbImage === null &&
+                  (item?.link?.image === null || item?.link?.image === '') ? (
+                    <PlayIcon />
+                  ) : (
+                    <VideoPlayIcon />
+                  )}
+                </View>
+              </Pressable>
+            )}
+          </View>
+        )}
+        <View style={styles.contentContainer}>
+          <View style={styles.tableHeaderContainer}>
+            <View style={styles.separatorOne}>
+              <Text style={styles.tableColumnTitleTextStyle}>Done</Text>
+              <Text style={styles.tableColumnTitleTextStyle}>Set</Text>
+            </View>
+            <View style={styles.separatorTwo}>
+              <Text style={styles.tableColumnTitleTextStyle}>KG</Text>
+              <Text style={styles.tableColumnTitleTextStyle}>Reps</Text>
+              <Text style={styles.tableColumnTitleTextStyle}>Rest, sec</Text>
+            </View>
+          </View>
+          <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+            {setsArray(item).map((_, index) => (
+              <ExerciseDetailRow
+                key={index + 5}
+                setNumber={index + 1}
+                onDataUpdate={handleExerciseStats}
+                kG={userInput.kG}
+                repS={userInput.repS}
+                resT={userInput.resT}
+                setUserInput={setUserInput}
+              />
+            ))}
+          </ScrollView>
+          {/* <TouchableOpacity
+            style={styles.submitButtonStyle}
+            onPress={() => handleSubmit()}>
+            <GradientContainer style={styles.submitButtonGradientStyle}>
+              <View style={styles.submitButtonViewStyle}>
+                <Text style={styles.submitButtonTextStyle}>Submit</Text>
+              </View>
+            </GradientContainer>
+          </TouchableOpacity> */}
+        </View>
+      </>
+    </View>
+  );
+};
+
+export default ExerciseCard;
+
+const styles = StyleSheet.create({
+  startButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 20,
+    height: 100,
+  },
+  startTextStyle: {
+    fontFamily: 'Manrope-Regular',
+    fontSize: 20,
+    color: COLORS.lightGreen,
+    textTransform: 'uppercase',
+    marginHorizontal: 10,
+  },
+  tableColumnTitleTextStyle: {
+    fontFamily: 'Manrope-Regular',
+    color: COLORS.grey_4,
+    fontSize: 13,
+    lineHeight: 15,
+    flex: 1,
+    marginHorizontal: 5,
+    textAlign: 'center',
+  },
+  inputBoxStyle: {
+    backgroundColor: 'white',
+    borderWidth: 1,
+    textAlign: 'center',
+    borderRadius: 5,
+    paddingVertical: 10,
+    borderColor: COLORS.grey_4,
+    color: COLORS.grey_2,
+    fontFamily: 'Manrope-Regular',
+    fontSize: 15,
+  },
+  inputBoxContainer: {
+    flex: 1,
+    paddingHorizontal: 5,
+  },
+  contentContainer: {
+    backgroundColor: COLORS.light_grey,
+    marginHorizontal: 10,
+    paddingHorizontal: 10,
+    paddingTop: 10,
+  },
+  tableHeaderContainer: {
+    flexDirection: 'row',
+    paddingVertical: 5,
+  },
+  submitButtonTextStyle: {
+    fontFamily: 'Manrope-SemiBold',
+    fontSize: 15,
+    color: COLORS.lightGreen,
+    lineHeight: 20,
+    textAlign: 'center',
+  },
+  submitButtonViewStyle: {
+    margin: 1,
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 35,
+  },
+  separatorOne: {
+    flexDirection: 'row',
+    width: '30%',
+  },
+  separatorTwo: {
+    flexDirection: 'row',
+    width: '70%',
+  },
+  submitButtonStyle: {
+    marginVertical: 10,
+    marginHorizontal: 5,
+  },
+  submitButtonGradientStyle: {
+    borderRadius: 30,
+  },
+  videoStyle: {
+    width: '100%',
+    height: Dimensions.get('window').height * 0.3125,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+  },
+});

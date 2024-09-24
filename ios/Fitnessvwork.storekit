@@ -1,0 +1,168 @@
+{
+  "identifier" : "6090066C",
+  "nonRenewingSubscriptions" : [
+    {
+      "displayPrice" : "99.99",
+      "familyShareable" : false,
+      "internalID" : "1545139696",
+      "localizations" : [
+        {
+          "description" : "24 Hour trainer support",
+          "displayName" : "Premium",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "002",
+      "referenceName" : "Premium",
+      "type" : "NonRenewingSubscription"
+    },
+    {
+      "displayPrice" : "59.99",
+      "familyShareable" : false,
+      "internalID" : "1544996186",
+      "localizations" : [
+        {
+          "description" : "10 Week App Access",
+          "displayName" : "Standard",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "001",
+      "referenceName" : "Standard",
+      "type" : "NonRenewingSubscription"
+    }
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1510934477",
+    "_developerTeamID" : "95PB3CS3WN",
+    "_lastSynchronizedDate" : 715247291.39852905
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "20723605",
+      "localizations" : [
+
+      ],
+      "name" : "Fitnessvwork Subscription",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "9.99",
+          "familyShareable" : false,
+          "groupNumber" : 3,
+          "internalID" : "6445465868",
+          "introductoryOffer" : {
+            "internalID" : "8D5ED8D4",
+            "numberOfPeriods" : 1,
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P1W"
+          },
+          "localizations" : [
+            {
+              "description" : "Free trial",
+              "displayName" : "Free trial",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "000",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Free trial",
+          "subscriptionGroupID" : "20723605",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "9.99",
+          "familyShareable" : false,
+          "groupNumber" : 4,
+          "internalID" : "6445474555",
+          "introductoryOffer" : {
+            "internalID" : "E8A5418B",
+            "numberOfPeriods" : 1,
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
+          "localizations" : [
+            {
+              "description" : "free trial test",
+              "displayName" : "free trial test",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "009",
+          "recurringSubscriptionPeriod" : "P1W",
+          "referenceName" : "Free trial test",
+          "subscriptionGroupID" : "20723605",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "299.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "1547592661",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Premium (Auto-Renewable)",
+              "displayName" : "Premium (Auto-Renewable)",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "003",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Premium (Auto-Renewable)",
+          "subscriptionGroupID" : "20723605",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "9.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "1547597077",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Standard (Auto-Renewable)",
+              "displayName" : "Standard (Auto-Renewable)",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "005",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Standard (Auto-Renewable)",
+          "subscriptionGroupID" : "20723605",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}
